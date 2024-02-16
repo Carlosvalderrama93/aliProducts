@@ -1,5 +1,11 @@
+import CreateProduct from "./CreateProduct";
+
 function App() {
-  return <div>app</div>;
+  return (
+    <div>
+      <CreateProduct />
+    </div>
+  );
 }
 
 export default App;
