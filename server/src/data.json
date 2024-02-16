@@ -1,0 +1,31 @@
+[
+  {
+    "basic": {
+      "title": "Laptop Huawei Matebook D15 Ryzen 5",
+      "price": 0,
+      "hsCode": ""
+    },
+    "moreInfo": {
+      "packaging": "",
+      "volume": 0,
+      "privateLabel": 0,
+      "url": "",
+      "materials": []
+    },
+    "sample": {
+      "samplePrice": 0,
+      "sampleQuantity": 0,
+      "sampleDelivery": 0
+    },
+    "variations": {
+      "colors": [],
+      "sizes": []
+    },
+    "price": {
+      "unitPrice": 0,
+      "incoterm": "",
+      "moq": 0
+    },
+    "id": "SrkusEBLuf5cV66kvW6uU"
+  }
+]
