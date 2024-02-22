@@ -3,7 +3,7 @@ export type RawPropsType = {
   price: number | undefined;
   hsCode: string | undefined;
   packaging: string | undefined;
-  volume: number | undefined;
+  volume: Volume;
   privateLabel: number | undefined;
   url: string | undefined;
   materials: string[] | undefined;
@@ -23,9 +23,16 @@ type Basic = {
   hsCode: string | undefined;
 };
 
+type Volume = {
+  unit: "mm" | "cm" | "mts";
+  total: number;
+  width: number;
+  height: number;
+  length: number;
+};
 type Moreinfo = {
   packaging: string | undefined;
-  volume: number | undefined;
+  volume: Volume;
   privateLabel: number | undefined;
   url: string | undefined;
   materials: string[] | undefined;

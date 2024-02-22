@@ -1,59 +1,83 @@
+type IncotermMaritimoType =
+  | "EXW"
+  | "FOB"
+  | "CFR"
+  | "CIF"
+  | "FAS"
+  | "CPT"
+  | "CIP"
+  | "DAT"
+  | "DAP"
+  | "DDP";
+
+type IncotermAereoType = "EXW" | "FCA" | "CPT" | "CIP" | "DAP" | "DAT" | "DDP";
+type WeightUnitType = "gr" | "lb" | "kg" | "tn";
+type DistanceUnitType = "mm" | "cm" | "mts";
+type IncotermType = IncotermAereoType | IncotermMaritimoType;
 export type RawPropsType = {
-  title: string | undefined;
-  price: number | undefined;
-  hsCode: string | undefined;
-  packaging: string | undefined;
-  volume: number | undefined;
-  privateLabel: number | undefined;
-  url: string | undefined;
-  materials: string[] | undefined;
-  samplePrice: number | undefined;
-  sampleQuantity: number | undefined;
-  sampleDelivery: number | undefined;
-  colors: string[] | undefined;
-  sizes: string[] | undefined;
-  unitPrice: number | undefined;
-  incoterm: string | undefined;
-  moq: number | undefined;
+  title: string;
+  price: number;
+  hsCode: string;
+  packaging: string;
+  weightUnit: WeightUnitType;
+  weight: number;
+  distanceUnit: DistanceUnitType;
+  width: number;
+  height: number;
+  length: number;
+  privateLabel: number;
+  url: string;
+  materials: string[];
+  samplePrice: number;
+  sampleQuantity: number;
+  sampleDelivery: number;
+  colors: string[];
+  sizes: string[];
+  incoterm: IncotermType;
+  moq: number;
 };
 
-type Basic = {
-  title: string | undefined;
-  price: number | undefined;
-  hsCode: string | undefined;
+type VolumeType = {
+  distanceUnit: DistanceUnitType;
+  width: number;
+  height: number;
+  length: number;
 };
 
-type Moreinfo = {
-  packaging: string | undefined;
-  volume: number | undefined;
-  privateLabel: number | undefined;
-  url: string | undefined;
-  materials: string[] | undefined;
+type BasicType = {
+  title: string;
+  price: number;
+  hsCode: string;
+  moq: number;
+  incoterm: IncotermType;
 };
 
-type Sample = {
-  samplePrice: number | undefined;
-  sampleQuantity: number | undefined;
-  sampleDelivery: number | undefined;
+type WeightType = { weightUnit: WeightUnitType; weight: number };
+type MoreinfoType = {
+  packaging: string;
+  privateLabel: number;
+  url: string;
+  materials: string[];
 };
 
-type variations = {
-  colors: string[] | undefined;
-  sizes: string[] | undefined;
+type SampleType = {
+  samplePrice: number;
+  sampleQuantity: number;
+  sampleDelivery: number;
 };
 
-type Price = {
-  unitPrice: number | undefined;
-  incoterm: string | undefined;
-  moq: number | undefined;
+type variationsType = {
+  colors: string[];
+  sizes: string[];
 };
 
 export type ProductType = {
-  basic: Basic;
-  moreInfo: Moreinfo;
-  sample: Sample;
-  variations: variations;
-  price: Price;
+  weight: WeightType;
+  volume: VolumeType;
+  basic: BasicType;
+  moreInfo: MoreinfoType;
+  sample: SampleType;
+  variations: variationsType;
 };
 
 export function buildProps(props: Partial<RawPropsType> = {}): RawPropsType {
@@ -62,7 +86,12 @@ export function buildProps(props: Partial<RawPropsType> = {}): RawPropsType {
     price: 0,
     hsCode: "",
     packaging: "",
-    volume: 0,
+    weightUnit: "gr",
+    weight: 0,
+    distanceUnit: "cm",
+    width: 0,
+    height: 0,
+    length: 0,
     privateLabel: 0,
     url: "",
     materials: [],
@@ -71,8 +100,7 @@ export function buildProps(props: Partial<RawPropsType> = {}): RawPropsType {
     sampleDelivery: 0,
     colors: [],
     sizes: [],
-    unitPrice: 0,
-    incoterm: "",
+    incoterm: "EXW",
     moq: 0,
   };
 
@@ -85,7 +113,12 @@ export function buildProduct(props: Partial<RawPropsType> = {}): ProductType {
     price,
     hsCode,
     packaging,
-    volume,
+    weight,
+    weightUnit,
+    distanceUnit,
+    width,
+    height,
+    length,
     privateLabel,
     url,
     materials,
@@ -94,17 +127,22 @@ export function buildProduct(props: Partial<RawPropsType> = {}): ProductType {
     sampleDelivery,
     colors,
     sizes,
-    unitPrice,
     incoterm,
     moq,
   } = buildProps(props);
 
   const basic: ProductType = {
-    basic: { title, price, hsCode },
-    moreInfo: { packaging, volume, privateLabel, url, materials },
+    basic: { title, price, hsCode, incoterm, moq },
+    weight: { weightUnit, weight },
+    volume: { width, height, length, distanceUnit },
+    moreInfo: {
+      packaging,
+      privateLabel,
+      url,
+      materials,
+    },
     sample: { samplePrice, sampleQuantity, sampleDelivery },
     variations: { colors, sizes },
-    price: { unitPrice, incoterm, moq },
   };
 
   return basic;
