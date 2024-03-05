@@ -1,15 +1,12 @@
-import { FieldFormFilter } from "./FieldFormFilter";
-import { type FormFieldProps, InputField, TextAreaField } from "./FormField";
+import {
+  InputField,
+  TextAreaField,
+  SpecialField,
+  type FormFieldProps,
+} from "./Fields";
 
-export default function FormFieldSelector(props: Omit<FormFieldProps, "type">) {
-  const {
-    label,
-    name,
-    placeholder,
-    validation, //
-    errors,
-    register,
-  } = props;
+export default function FieldSelector(props: Omit<FormFieldProps, "type">) {
+  const { label, name, placeholder, validation, errors, register } = props;
 
   const formFieldConfig: {
     password: string[];
@@ -181,7 +178,7 @@ export default function FormFieldSelector(props: Omit<FormFieldProps, "type">) {
 
     case formFieldConfig.radio.includes(name):
       return (
-        <FieldFormFilter
+        <SpecialField
           errors={errors}
           type={"number"}
           validation={validation}
@@ -192,7 +189,7 @@ export default function FormFieldSelector(props: Omit<FormFieldProps, "type">) {
 
     case formFieldConfig.select.includes(name):
       return (
-        <FieldFormFilter
+        <SpecialField
           errors={errors}
           type={"number"}
           validation={validation}
@@ -209,9 +206,5 @@ export default function FormFieldSelector(props: Omit<FormFieldProps, "type">) {
           validation={validation}
         />
       );
-
-    default:
-      console.log("FormFieldSelector Default Case");
-      break;
   }
 }

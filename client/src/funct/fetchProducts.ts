@@ -1,6 +1,6 @@
 import { buildProduct, type ProductType, type RawPropsType } from "./product";
 
-export default async function doFetch(data: RawPropsType, key: string) {
+export default async function doFetch(data: ProductType, key: string) {
   switch (key) {
     case "post":
       return await post(data);
@@ -11,9 +11,8 @@ export default async function doFetch(data: RawPropsType, key: string) {
   }
 }
 
-async function post(data: RawPropsType) {
+async function post(product: RawPropsType) {
   try {
-    const product: ProductType = buildProduct(data);
     const requestOpt = {
       method: "POST",
       headers: {

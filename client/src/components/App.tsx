@@ -1,9 +1,9 @@
-import CreateProduct from "./CreateProduct";
+import AddProduct from "./AddProduct";
 
 function App() {
   return (
     <div>
-      <CreateProduct />
+      <AddProduct />
     </div>
   );
 }

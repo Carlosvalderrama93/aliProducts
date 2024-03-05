@@ -1,15 +1,13 @@
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { RawPropsType } from "../funct/product";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import type {
-  FormFieldPropsGeneratorType,
-  NameFormFieldGeneratorType,
-} from "../funct/formField";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
-export type FormFieldProps = Omit<FormFieldPropsGeneratorType, "id"> & {
+import type { FieldKeysType, FieldPropertiesType } from "../../funct/formField";
+import type { RawProductType } from "../../funct/product";
+
+export type FormFieldProps = Omit<FieldPropertiesType, "id"> & {
   type: string;
-  register: UseFormRegister<RawPropsType>;
-  errors: FieldErrors<RawPropsType>;
+  register: UseFormRegister<RawProductType>;
+  errors: FieldErrors<RawProductType>;
 };
 
 export function InputField(props: FormFieldProps) {
@@ -27,8 +25,10 @@ export function InputField(props: FormFieldProps) {
         placeholder={placeholder}
         {...register(name, validation)}
       />
-      {errors[name] && (
-        <p className="text-red-500 text-xs italic">{errors[name]?.message}</p>
+      {errors[name as keyof typeof errors] && (
+        <p className="text-red-500 text-xs italic">
+          {errors[name as keyof typeof errors]?.message}
+        </p>
       )}
     </>
   );
@@ -40,8 +40,6 @@ export function TextAreaField(
   const { name, validation, register } = props;
   return <textarea {...register(name, validation)} />;
 }
-
-
 
 export function ShippingField(
   props: Pick<FormFieldProps, "name" | "register">
@@ -90,7 +88,9 @@ export function ShippingField(
   );
 }
 
-export function WeightField(props: Omit<FormFieldProps, "label" | "placeholder">) {
+export function WeightField(
+  props: Omit<FormFieldProps, "label" | "placeholder">
+) {
   const [weightUnit, setWeightUnit] = useState("gr");
   const { name, register, errors, validation } = props;
   const values = ["gr", "lb", "kg", "tn"];
@@ -106,7 +106,7 @@ export function WeightField(props: Omit<FormFieldProps, "label" | "placeholder">
       <InputField
         label={"weight"}
         name={"weight"}
-        placeholder={"weight TEST"}
+        placeholder={name}
         register={register}
         errors={errors}
         validation={validation}
@@ -116,15 +116,13 @@ export function WeightField(props: Omit<FormFieldProps, "label" | "placeholder">
   );
 }
 
-export function DistanceField(props: Omit<FormFieldProps, "placeholder" | "label">) {
-  const [distanceUnit, setDistanceUnit] = useState("gr");
+export function DistanceField(
+  props: Omit<FormFieldProps, "placeholder" | "label">
+) {
+  const [distanceUnit, setDistanceUnit] = useState("cm");
   const { name, register, errors, validation } = props;
-  const values = ["gr", "lb", "kg", "tn"];
-  const names: Partial<NameFormFieldGeneratorType>[] = [
-    "width",
-    "height",
-    "length",
-  ];
+  const values = ["mm", "cm", "mts"];
+  const names: Partial<RawProductType>[] = ["width", "height", "length"];
   return (
     <div>
       <RadioField
@@ -138,9 +136,9 @@ export function DistanceField(props: Omit<FormFieldProps, "placeholder" | "label
         return (
           <InputField
             key={index}
-            label={name}
-            name={name}
-            placeholder={name}
+            label={name as FieldKeysType}
+            name={name as FieldKeysType}
+            placeholder={name as FieldKeysType}
             register={register}
             errors={errors}
             validation={validation}
@@ -160,6 +158,7 @@ export function RadioField(
   }
 ) {
   const { name, register, values, state, setState } = props;
+
   return values.map((value, index) => (
     <div key={index}>
       <label>{value}</label>
@@ -188,4 +187,35 @@ function SelectField(
       ))}
     </select>
   );
+}
+
+export function SpecialField(
+  props: Omit<FormFieldProps, "label" | "placeholder">
+) {
+  const { name, register, errors, validation, type } = props;
+
+  switch (name) {
+    case "incoterm":
+      return <ShippingField name={name} register={register} />;
+    case "weightUnit":
+      return (
+        <WeightField
+          name={name}
+          errors={errors}
+          register={register}
+          validation={validation}
+          type={type}
+        />
+      );
+    case "distanceUnit":
+      return (
+        <DistanceField
+          name={name}
+          errors={errors}
+          register={register}
+          validation={validation}
+          type={type}
+        />
+      );
+  }
 }

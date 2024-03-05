@@ -11,10 +11,13 @@ type IncotermMaritimoType =
   | "DDP";
 
 type IncotermAereoType = "EXW" | "FCA" | "CPT" | "CIP" | "DAP" | "DAT" | "DDP";
-type WeightUnitType = "gr" | "lb" | "kg" | "tn";
-type DistanceUnitType = "mm" | "cm" | "mts";
 type IncotermType = IncotermAereoType | IncotermMaritimoType;
-export type RawPropsType = {
+
+type DistanceUnitType = "mm" | "cm" | "mts";
+type WeightUnitType = "gr" | "lb" | "kg" | "tn";
+type WeightType = { weightUnit: WeightUnitType; weight: number };
+
+export type RawProductType = {
   title: string;
   price: number;
   hsCode: string;
@@ -52,7 +55,6 @@ type BasicType = {
   incoterm: IncotermType;
 };
 
-type WeightType = { weightUnit: WeightUnitType; weight: number };
 type MoreinfoType = {
   packaging: string;
   privateLabel: number;
@@ -80,8 +82,10 @@ export type ProductType = {
   variations: variationsType;
 };
 
-export function buildProps(props: Partial<RawPropsType> = {}): RawPropsType {
-  const rawProps: RawPropsType = {
+export function buildRawProduct(
+  props: Partial<RawProductType> = {}
+): RawProductType {
+  const rawProps: RawProductType = {
     title: "",
     price: 0,
     hsCode: "",
@@ -107,7 +111,7 @@ export function buildProps(props: Partial<RawPropsType> = {}): RawPropsType {
   return { ...rawProps, ...props };
 }
 
-export function buildProduct(props: Partial<RawPropsType> = {}): ProductType {
+export function buildProduct(props: Partial<RawProductType> = {}): ProductType {
   const {
     title,
     price,
@@ -129,9 +133,9 @@ export function buildProduct(props: Partial<RawPropsType> = {}): ProductType {
     sizes,
     incoterm,
     moq,
-  } = buildProps(props);
+  } = buildRawProduct(props);
 
-  const basic: ProductType = {
+  return {
     basic: { title, price, hsCode, incoterm, moq },
     weight: { weightUnit, weight },
     volume: { width, height, length, distanceUnit },
@@ -144,6 +148,4 @@ export function buildProduct(props: Partial<RawPropsType> = {}): ProductType {
     sample: { samplePrice, sampleQuantity, sampleDelivery },
     variations: { colors, sizes },
   };
-
-  return basic;
 }
