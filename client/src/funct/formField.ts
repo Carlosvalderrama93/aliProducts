@@ -10,14 +10,6 @@ export type FieldPropertiesType = {
   label: FieldKeysType;
   name: FieldKeysType;
   placeholder: FieldKeysType;
-  validation: {
-    message: string;
-    maxLength: number;
-    min: number;
-    value: string;
-    required: boolean;
-    valueAsNumber: boolean;
-  };
 };
 
 export function createValidator(
@@ -26,12 +18,12 @@ export function createValidator(
   isNumber: boolean = false
 ) {
   return {
-    message: `${key} is required`,
     maxLength: 100,
-    min: 0,
+    minLength: 10,
     value: "",
     required: isRequired,
     valueAsNumber: isNumber,
+    message: `${key} is required`,
   };
 }
 
@@ -43,7 +35,6 @@ export function sectionProps(section: string): FieldPropertiesType[] {
     label: field as FieldKeysType,
     name: field as FieldKeysType,
     placeholder: field as FieldKeysType,
-    validation: createValidator(field),
   }));
 }
 

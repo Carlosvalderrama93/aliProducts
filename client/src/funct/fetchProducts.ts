@@ -1,4 +1,4 @@
-import { buildProduct, type ProductType, type RawPropsType } from "./product";
+import { type ProductType } from "./product";
 
 export default async function doFetch(data: ProductType, key: string) {
   switch (key) {
@@ -6,12 +6,12 @@ export default async function doFetch(data: ProductType, key: string) {
       return await post(data);
 
     default:
-      console.log("Default case");
+      console.log("Default case in Fecth Products");
       break;
   }
 }
 
-async function post(product: RawPropsType) {
+async function post(product: ProductType) {
   try {
     const requestOpt = {
       method: "POST",

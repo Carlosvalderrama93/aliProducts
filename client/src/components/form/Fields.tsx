@@ -11,34 +11,33 @@ export type FormFieldProps = Omit<FieldPropertiesType, "id"> & {
 };
 
 export function InputField(props: FormFieldProps) {
-  const { label, name, type, placeholder, register, errors, validation } =
-    props;
+  const { label, name, type, placeholder, register, errors } = props;
 
   return (
     <>
       <label className="block text-gray-700 text-sm font-bold mb-2">
         {label}
       </label>
+      {errors[name as keyof typeof errors] && (
+        <span className="text-red-500 text-xs italic">
+          {errors[name as keyof typeof errors]?.message}
+        </span>
+      )}
       <input
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         type={type}
         placeholder={placeholder}
-        {...register(name, validation)}
+        {...register(name)}
       />
-      {errors[name as keyof typeof errors] && (
-        <p className="text-red-500 text-xs italic">
-          {errors[name as keyof typeof errors]?.message}
-        </p>
-      )}
     </>
   );
 }
 
 export function TextAreaField(
-  props: Pick<FormFieldProps, "name" | "validation" | "register">
+  props: Pick<FormFieldProps, "name" | "register">
 ) {
-  const { name, validation, register } = props;
-  return <textarea {...register(name, validation)} />;
+  const { name, register } = props;
+  return <textarea {...register(name)} />;
 }
 
 export function ShippingField(
@@ -92,7 +91,7 @@ export function WeightField(
   props: Omit<FormFieldProps, "label" | "placeholder">
 ) {
   const [weightUnit, setWeightUnit] = useState("gr");
-  const { name, register, errors, validation } = props;
+  const { name, register, errors } = props;
   const values = ["gr", "lb", "kg", "tn"];
   return (
     <div>
@@ -109,8 +108,7 @@ export function WeightField(
         placeholder={name}
         register={register}
         errors={errors}
-        validation={validation}
-        type="number"
+        type="text"
       />
     </div>
   );
@@ -120,7 +118,7 @@ export function DistanceField(
   props: Omit<FormFieldProps, "placeholder" | "label">
 ) {
   const [distanceUnit, setDistanceUnit] = useState("cm");
-  const { name, register, errors, validation } = props;
+  const { name, register, errors } = props;
   const values = ["mm", "cm", "mts"];
   const names: Partial<RawProductType>[] = ["width", "height", "length"];
   return (
@@ -141,8 +139,7 @@ export function DistanceField(
             placeholder={name as FieldKeysType}
             register={register}
             errors={errors}
-            validation={validation}
-            type="number"
+            type="text"
           />
         );
       })}
@@ -192,7 +189,7 @@ function SelectField(
 export function SpecialField(
   props: Omit<FormFieldProps, "label" | "placeholder">
 ) {
-  const { name, register, errors, validation, type } = props;
+  const { name, register, errors, type } = props;
 
   switch (name) {
     case "incoterm":
@@ -203,7 +200,6 @@ export function SpecialField(
           name={name}
           errors={errors}
           register={register}
-          validation={validation}
           type={type}
         />
       );
@@ -213,7 +209,6 @@ export function SpecialField(
           name={name}
           errors={errors}
           register={register}
-          validation={validation}
           type={type}
         />
       );

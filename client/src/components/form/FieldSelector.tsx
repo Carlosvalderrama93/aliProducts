@@ -6,6 +6,7 @@ import {
 } from "./Fields";
 
 export default function FieldSelector(props: Omit<FormFieldProps, "type">) {
+  
   const { label, name, placeholder, validation, errors, register } = props;
 
   const formFieldConfig: {
@@ -68,7 +69,7 @@ export default function FieldSelector(props: Omit<FormFieldProps, "type">) {
           register={register}
           errors={errors}
           validation={validation}
-          type="number"
+          type="text"
         />
       );
 

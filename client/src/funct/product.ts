@@ -11,7 +11,7 @@ type IncotermMaritimoType =
   | "DDP";
 
 type IncotermAereoType = "EXW" | "FCA" | "CPT" | "CIP" | "DAP" | "DAT" | "DDP";
-type IncotermType = IncotermAereoType | IncotermMaritimoType;
+export type IncotermType = IncotermAereoType | IncotermMaritimoType;
 
 type DistanceUnitType = "mm" | "cm" | "mts";
 type WeightUnitType = "gr" | "lb" | "kg" | "tn";

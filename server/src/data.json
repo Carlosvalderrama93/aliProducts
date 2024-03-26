@@ -1,31 +1,37 @@
 [
   {
     "basic": {
-      "title": "Laptop Huawei Matebook D15 Ryzen 5",
-      "price": 0,
-      "hsCode": ""
+      "title": "smartphone",
+      "price": "150",
+      "hsCode": "5687",
+      "incoterm": "EXW",
+      "moq": "500"
+    },
+    "weight": {
+      "weightUnit": "gr",
+      "weight": "100"
+    },
+    "volume": {
+      "width": "30",
+      "height": "10",
+      "length": "3",
+      "distanceUnit": "cm"
     },
     "moreInfo": {
-      "packaging": "",
-      "volume": 0,
-      "privateLabel": 0,
-      "url": "",
-      "materials": []
+      "packaging": "Box",
+      "privateLabel": "1000",
+      "url": "https://www.urlproduct.com",
+      "materials": "Plastic"
     },
     "sample": {
-      "samplePrice": 0,
-      "sampleQuantity": 0,
-      "sampleDelivery": 0
+      "samplePrice": "200",
+      "sampleQuantity": "1",
+      "sampleDelivery": "10"
     },
     "variations": {
-      "colors": [],
-      "sizes": []
+      "colors": "3",
+      "sizes": "1"
     },
-    "price": {
-      "unitPrice": 0,
-      "incoterm": "",
-      "moq": 0
-    },
-    "id": "SrkusEBLuf5cV66kvW6uU"
+    "id": "-vIH9_HZqWhWCvW37GGcG"
   }
 ]
