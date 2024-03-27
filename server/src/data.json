@@ -1,0 +1,37 @@
+[
+  {
+    "basic": {
+      "title": "smartphone",
+      "price": "150",
+      "hsCode": "5687",
+      "incoterm": "EXW",
+      "moq": "500"
+    },
+    "weight": {
+      "weightUnit": "gr",
+      "weight": "100"
+    },
+    "volume": {
+      "width": "30",
+      "height": "10",
+      "length": "3",
+      "distanceUnit": "cm"
+    },
+    "moreInfo": {
+      "packaging": "Box",
+      "privateLabel": "1000",
+      "url": "https://www.urlproduct.com",
+      "materials": "Plastic"
+    },
+    "sample": {
+      "samplePrice": "200",
+      "sampleQuantity": "1",
+      "sampleDelivery": "10"
+    },
+    "variations": {
+      "colors": "3",
+      "sizes": "1"
+    },
+    "id": "-vIH9_HZqWhWCvW37GGcG"
+  }
+]

@@ -1,5 +1,11 @@
+import AddProduct from "./AddProduct";
+
 function App() {
-  return <div>app</div>;
+  return (
+    <div>
+      <AddProduct />
+    </div>
+  );
 }
 
 export default App;
